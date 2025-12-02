@@ -149,7 +149,7 @@ def fused_recurrent_gated_delta_rule_fwd(
     num_stages = 3
     num_warps = 1
 
-    o = q.new_empty(NK, *v.shape)
+    o = q.new_zeros(NK, *v.shape)
     if output_final_state:
         final_state = q.new_empty(N, HV, K, V, dtype=torch.float32)
     else:
@@ -562,9 +562,9 @@ def fused_recurrent_gated_delta_rule_update_fwd(
 
     if disable_output_calculation:
         # When output calculation is disabled, allocate minimal tensor
-        o = q.new_empty(NK, 1, 1, 1, 1)  # minimal allocation
+        o = q.new_zeros(NK, 1, 1, 1, 1)  # minimal allocation
     else:
-        o = q.new_empty(NK, *v.shape)
+        o = q.new_zeros(NK, *v.shape)
 
     grid = (NK, NV, N * HV)
 

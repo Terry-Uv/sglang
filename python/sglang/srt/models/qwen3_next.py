@@ -377,7 +377,7 @@ class Qwen3GatedDeltaNet(nn.Module):
         hidden_states: torch.Tensor,
         forward_batch: ForwardBatch,
     ):
-        output = torch.empty_like(hidden_states)
+        output = torch.zeros_like(hidden_states)
         if forward_batch.forward_mode.is_extend() and get_forward_context() is not None:
             torch.ops.sglang.gdn_with_output(
                 hidden_states,
